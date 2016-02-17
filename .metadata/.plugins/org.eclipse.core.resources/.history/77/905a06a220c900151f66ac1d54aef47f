@@ -1,0 +1,5 @@
+package org.apach.hadoop.examples;
+
+public class WordCount {
+
+}

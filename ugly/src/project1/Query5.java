@@ -34,7 +34,6 @@ public class Query5 extends Configured implements Tool {
 		private HashMap<String, String> customerMap = new HashMap<String, String>();
 		private Text ID = new Text();
 		private final static IntWritable one = new IntWritable(1);
-	
 		//Read Customers.csv file into DistributedCache for map-side join
 		@Override
 		protected void setup(Context context
@@ -50,6 +49,7 @@ public class Query5 extends Configured implements Tool {
 						// save to HashMap
 						String[] str= line.split(",", 2);
 						customerMap.put(str[0], str[1]);
+						//System.out.println(str[0]+" "+str[1].split(",")[0]);
 					}
 				}
 			}
@@ -66,8 +66,10 @@ public class Query5 extends Configured implements Tool {
 				// (ID name) as key
 				ID.set(recordT[1]+" "+recordC[0]);
 				//  #transaction as value
+				
 				context.write(ID, one);
 			}
+			
 		}
 	
 	}// finish mapper

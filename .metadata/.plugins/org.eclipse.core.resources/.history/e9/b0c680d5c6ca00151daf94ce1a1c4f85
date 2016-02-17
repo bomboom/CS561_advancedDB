@@ -1,0 +1,68 @@
+package project1;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashMap;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.Tool;
+
+
+public class Query3 extends Configured implements Tool {
+	
+	
+	
+	public static class TokenizerMapper
+			extends Mapper<Object, Text, Text, Text>{
+		//Save records for Customers relation
+		private HashMap<String, String> customerMap = new HashMap<String, String>();
+		private Text ID = new Text();
+		private Text value = new Text();
+	
+		//Read Customers.csv file into DistributedCache for map-side join
+		@Override
+		protected void setup(Context context
+				) throws IOException, InterruptedException{
+			BufferedReader bf = null;
+			Path[] paths = DistributedCache.getLocalCacheFiles(context.getConfiguration());
+			String line = "";
+			
+			for(Path path: paths){
+				if(path.toString().contains("Customers")){
+					bf = new BufferedReader(new FileReader(path.toString()));
+					while((line=bf.readLine())!=null){
+						// save to HashMap
+						String[] str= line.split(",", 2);
+						customerMap.put(str[0], str[1]);
+						System.out.println(str[0]+"-"+str[1]);
+					}
+				}
+			}
+			
+			bf.close();
+		} // finish setup
+		
+		public void map(Object key, Text value, Context context
+				)throws IOException, InterruptedException{
+			
+		}
+	
+	}// finish mapper
+
+	@Override
+	public int run(String[] arg0) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

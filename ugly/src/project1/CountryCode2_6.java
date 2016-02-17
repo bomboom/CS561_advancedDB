@@ -26,7 +26,7 @@ public class CountryCode2_6 {
 	    	String records = itr.nextToken();
 	    	String[] sep = records.split(",");
 	    	if(Integer.parseInt(sep[3])>=2 && Integer.parseInt(sep[3])<=6){
-		        customer.set(sep[0]+","+sep[1]);
+		        customer.set(sep[0]);
 		        //System.out.println(customer);
 		        Text h = new Text(sep[3]);
 		        context.write(customer,h);

@@ -62,7 +62,7 @@ public class Query4 extends Configured implements Tool {
 				// CountryCode as key, since it has already matched the customer id;
 				cCode.set(recordC[2]);
 				//  #id transNum
-				mapValue.set("1 "+recordT[2]);
+				mapValue.set("1 "+recordT[1]+" "+recordT[2]);
 				context.write(cCode, mapValue);
 			}
 		}
@@ -72,7 +72,7 @@ public class Query4 extends Configured implements Tool {
 	public static class sumReducer 
 			extends Reducer<Text, Text, Text, Text>{
 		private Text result = new Text();
-		
+		private HashMap<String, Float> cus = new HashMap<String, Float>();
 		public void reduce(Text key, Iterable<Text> value, Context context
 				) throws IOException, InterruptedException{
 			int sum = 0;	//#transacion
@@ -81,8 +81,15 @@ public class Query4 extends Configured implements Tool {
 			for(Text val:value){
 				String[] rec = val.toString().split(" ");
 				sum += Integer.parseInt(rec[0]);
-				max = max<Float.parseFloat(rec[1])? Float.parseFloat(rec[1]):max;
-				min = min>Float.parseFloat(rec[1])? Float.parseFloat(rec[1]):min;
+				if(!cus.containsKey(rec[1])){
+					cus.put(rec[1], Float.parseFloat(rec[2]));
+				}else{
+					cus.put(rec[1], cus.get(rec[1])+Float.parseFloat(rec[2]));
+				}
+			}
+			for(String a: cus.keySet()){
+				max = cus.get(a)>max? cus.get(a):max;
+				min = cus.get(a)<min? cus.get(a):min;
 			}
 			result.set(Integer.toString(sum)+" "+Float.toString(min)+" "+Float.toString(max));
 			context.write(key, result);
