@@ -1,11 +1,10 @@
 library(rmr2)
 
 map <- function(k,lines) {
-  a = 1:250000
   line <- strsplit(lines, '\\n')
   b = rapply(line, function(row){
     cc = unlist(strsplit(row, ','))
-    cc = cc[seq(4,length(a),4)]
+    cc = cc[seq(4,10,4)]
   })
   keyval(b,"1")
 }
