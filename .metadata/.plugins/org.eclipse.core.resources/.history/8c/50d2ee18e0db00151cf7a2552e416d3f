@@ -1,0 +1,63 @@
+package hw4;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+public class Kmeans extends Configured implements Tool {
+
+	
+	public static class classifyMapper 
+			extends Mapper<Object, Text, Text, Text>{
+		private static Log log = LogFactory.getLog(classifyMapper.class);
+		private double[] center_x = new double[6];
+		private double[] center_y = new double[6];
+		
+		@Override
+		protected void setup(Context context
+				)throws IOException, InterruptedException{
+			Path[] caches = DistributedCache.getLocalCacheFiles(context.getConfiguration());
+			if(caches==null || caches.length<=0){
+				log.error("no cache file");
+				System.exit(1);
+			}
+			
+			BufferedReader br = new BufferedReader(new FileReader(caches[0].toString()));
+			String line = "";
+			while((line=br.readLine())==null){
+				String[] str = line.split("\t");
+				int i = Integer.parseInt(str[0]);
+				float x = Float.parseFloat(str[1]);
+				float y = Float.parseFloat(str[2]);
+				this.center_x[i] = x;
+				this.center_y[i] = y;
+			}
+			br.close();
+		}
+		
+		public void map(Object key, Text value, Context context){
+			StringTokenizer itr = new StringTokenizer(value.toString());
+			while(itr.hasMoreTokens()){
+				
+			}
+		}
+		
+			}//finish mapper
+}

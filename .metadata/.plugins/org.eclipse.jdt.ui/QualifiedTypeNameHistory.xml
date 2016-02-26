@@ -7,4 +7,17 @@
 <fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob"/>
 <fullyQualifiedTypeName name="org.apache.hadoop.mapred.jobcontrol.JobControl"/>
 <fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="org.apache.commons.logging.LogFactory"/>
+<fullyQualifiedTypeName name="org.apache.commons.logging.Log"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.fs.FileSystem"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.fs.FSDataInputStream"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.util.LineReader"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.util.GenericOptionsParser"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
 </qualifiedTypeNameHistroy>

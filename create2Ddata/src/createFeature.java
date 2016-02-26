@@ -1,0 +1,39 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
+
+public class createFeature {
+	public static int genInt(int min, int max){
+		return new Random().nextInt(max-min+1)+min;
+	}
+	
+	public static void main(String[] args) throws IOException{
+		File data = new File("/home/hadoop/data.csv");
+		if(!data.exists())	data.createNewFile();
+		BufferedWriter bw = new BufferedWriter(new FileWriter(data, false));
+		for(int i=0;i<30;i++){
+			String str = Integer.toString(i);
+			for(int j=0;j<10;j++){
+				str += ','+Integer.toString(genInt(0,100));
+			}
+			bw.write(str);
+			bw.newLine();
+		}
+		bw.close();
+		
+		File center = new File("/home/hadoop/test.csv");
+		bw = new BufferedWriter(new FileWriter(center, false));
+		if(!center.exists())	data.createNewFile();
+		for(int i=1;i<=3;i++){
+			String str = Integer.toString(i);
+			for(int j=0;j<10;j++){
+				str += ','+Integer.toString(genInt(0,100));
+			}
+			bw.write(str);
+			bw.newLine();
+		}
+		bw.close();
+	}
+}
