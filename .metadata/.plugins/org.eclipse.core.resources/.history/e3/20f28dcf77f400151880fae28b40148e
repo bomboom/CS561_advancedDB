@@ -1,0 +1,87 @@
+package hw4;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.io.compress.CompressionCodecFactory;
+import org.apache.hadoop.mapreduce.InputSplit;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.JobContext;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.RecordReader;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.InputFormat;
+import org.apache.hadoop.mapreduce.TaskAttemptContext;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.LineRecordReader;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.util.LineReader;
+
+public class CustomInput {
+	public class CustomerRecordReader extends RecordReader<LongWritable, Text>{
+		private LineReader in;
+	    //private final static Text EOL = new Text("\n");
+	    private String DELIMITER = "},\n";
+	    private int maxLengthRecord;
+	    
+	    @Override
+	    public void initialize(InputSplit split, TaskAttemptContext context
+	    		)throws IOException, InterruptedException{
+	    	Configuration job = context.getConfiguration();
+	    	if(job.get("record.delimiter")!=null){
+	    		this.DELIMITER = job.get("record.delimiter");
+	    	}
+	    }
+	    
+	    private int readNext(Text text, int maxLineLength, int maxBytesToConsume
+	    		)throws IOException{
+	    	int offset = 0;
+	    	text.clear();
+	    	Text tmp = new Text();
+	    	
+	    	for(int i=0;i<maxBytesToConsume;i++){
+	    		int offsetTmp = in.readLine(tmp, maxLineLength, maxBytesToConsume);
+	    		offset += offsetTmp;
+	    		if(offsetTmp==0)	break;
+	    		if(DELIMITER.equals(tmp.toString()))	break;
+	    		else{
+	    			//append value to record
+	    			String line = tmp.toString();
+	    			String[] apart = line.split(":");
+	    			Text k = new Text(apart[1]);
+	    			text.append(k.getBytes(), 0, k.getLength());
+	    		}
+	    	}
+	    	return offset;
+	    }
+	    
+	}
+	
+	public class CustomerInputFormat extends TextInputFormat{
+		
+		@Override
+		public RecordReader<LongWritable, Text> createRecordReader(
+				InputSplit split, TaskAttemptContext context){
+			return new CustomerRecordReader();
+		}
+		
+		
+	}// finish myinputformat
+}

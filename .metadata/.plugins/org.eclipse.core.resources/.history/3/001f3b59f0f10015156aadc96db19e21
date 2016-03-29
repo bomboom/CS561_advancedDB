@@ -1,0 +1,116 @@
+package hw4;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.Reducer.Context;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class SpacialJoin {
+	public static class regMapper
+			extends Mapper<Object, Text, Text, Text>{
+	
+		private Text REGION = new Text();  //every 5 as a region. x:(0,5],(5,10]....
+		private Text VALUE = new Text();
+		
+		public void map(Object key, Text value, Context context
+				)throws IOException, InterruptedException{
+			StringTokenizer itr = new StringTokenizer(value.toString());
+			while(itr.hasMoreTokens()){
+				String records = itr.nextToken();
+				String[] sep = records.split(",");
+				if(sep.length == 3){ //Points, out: 
+					int region = Integer.parseInt(sep[1])/5 * 5;
+					if(region == Integer.parseInt(sep[1])){
+						REGION.set(Integer.toString(region));
+					}else{
+						REGION.set(Integer.toString(region+5));
+					}
+					VALUE.set("p,"+sep[1]+','+sep[2]);
+					context.write(REGION, VALUE);
+				}else{
+					int region = (int)Float.parseFloat(sep[1])/5 * 5;
+					if(region==Float.parseFloat(sep[1])){
+						REGION.set(Integer.toString(region));
+						VALUE.set(sep[0]+","+sep[1]+','+sep[2]+','+sep[3]+','+sep[4]);
+						context.write(REGION, VALUE);
+						REGION.set(Integer.toString(region)+5);
+						VALUE.set(sep[0]+","+sep[1]+','+sep[2]+','+sep[3]+','+sep[4]);
+						context.write(REGION, VALUE);
+					}else{
+						REGION.set(Integer.toString(region)+5);
+						VALUE.set(sep[0]+","+sep[1]+','+sep[2]+','+sep[3]+','+sep[4]);
+						context.write(REGION, VALUE);
+						if(region+5 < Float.parseFloat(sep[1])+Float.parseFloat(sep[4])){
+							REGION.set(Integer.toString(region)+10);
+							VALUE.set(sep[0]+","+sep[1]+','+sep[2]+','+sep[3]+','+sep[4]);
+							context.write(REGION, VALUE);
+						}
+					}
+				}
+			}
+		}
+	
+	} //mapper finish
+	
+	//Reducer
+	public static class outReducer
+			extends Reducer<Text, Text, Text, Text>{
+	
+		private Text result = new Text();
+		
+		public void reduce(Text key, Iterable<Text> value, Context context
+				)throws IOException, InterruptedException{
+			List<String> l = new ArrayList<String>(); //store rectangle, r1, x, y, h, w
+			
+			for(Text val:value){
+				String[] str = val.toString().split(",");
+				if(!str[0].equals("p")){
+					l.add(val.toString());
+				}
+			} // store rectangle to arraylist l
+			
+			for(Text val:value){
+				String[] str = val.toString().split(",");
+				if(str[0].equals("p")){
+					for(String rec:l){
+						String[] recArr = rec.split(",");
+						//if points in rec
+						if()
+					}
+				}
+			}
+			
+			
+		}
+	} //reducer finish
+	
+	public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException{
+		Configuration conf = new Configuration();
+		if(args.length!=2){
+			System.err.println("Wrong ussage");
+			System.exit(2);
+		}
+		
+		Job job = new Job(conf, "SpacialJoin");
+		job.setJarByClass(SpacialJoin.class);
+		job.setMapperClass(regMapper.class);
+		job.setCombinerClass(outReducer.class);
+		job.setReducerClass(outReducer.class);
+		job.setNumReduceTasks(2);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		System.exit(job.waitForCompletion(true)? 0:1);
+	}
+}

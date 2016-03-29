@@ -1,0 +1,196 @@
+package hw4;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.Reducer.Context;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class SpacialJoin {
+	public static class regMapper
+			extends Mapper<Object, Text, Text, Text>{
+	
+		private Text REGION = new Text();  //every 5 as a region. x:(0,5],(5,10]..., y:(0,20],(20,40]...
+		private Text VALUE = new Text();
+		
+		public void map(Object key, Text value, Context context
+				)throws IOException, InterruptedException{
+			StringTokenizer itr = new StringTokenizer(value.toString());
+			String w = context.getConfiguration().getStrings("w")[0];
+			String[] wList = w.split(",");
+			
+			while(itr.hasMoreTokens()){
+				String records = itr.nextToken();
+				String[] sep = records.split(",");
+				if(sep.length == 3){ //Points, out: 
+					boolean k = Integer.parseInt(sep[1])>=Integer.parseInt(wList[0]) && Integer.parseInt(sep[1])<=Integer.parseInt(wList[2])
+								&& Integer.parseInt(sep[2])>=Integer.parseInt(wList[1]) && Integer.parseInt(sep[2])<=Integer.parseInt(wList[3]);
+					if(w=="NULL" || k){
+						String str = this.judgePoint(Integer.parseInt(sep[1]), Integer.parseInt(sep[2]));
+						REGION.set(str);
+						VALUE.set("p,"+sep[1]+','+sep[2]);
+						context.write(REGION, VALUE);
+					}
+				}else{
+					
+					List<String> strList = this.judgeRec(Float.parseFloat(sep[1]), Float.parseFloat(sep[2]), Float.parseFloat(sep[3]), Float.parseFloat(sep[4]));
+					VALUE.set(sep[0]+","+sep[1]+','+sep[2]+','+sep[3]+','+sep[4]);
+					for(String s:strList){
+						REGION.set(s);
+						context.write(REGION, VALUE);
+					//System.out.println(REGION.toString()+','+VALUE.toString());
+					}
+				}
+			}
+		}
+		
+		public String judgePoint(int x, int y){
+			String str = "";
+			
+			int region_x = x/5 * 5;
+			int region_y = y/20 * 20;
+			if(region_x == x){
+				if(region_y == y){
+					str += Integer.toString(region_x)+','+region_y;
+				}else{
+					str += Integer.toString(region_x)+','+(region_y+20);
+				}
+			}else{
+				if(region_y == y){
+					str += Integer.toString(region_x+5)+','+region_y;
+				}else{
+					str += Integer.toString(region_x+5)+','+(region_y+20);
+				}
+			}
+			//System.out.println(REGION.toString()+','+VALUE.toString());
+			
+			return str;
+		}
+		
+		public List<String> judgeRec(float x, float y, float h, float w){
+			List<String> str = new ArrayList<String>();
+			
+			int region_x = (int) x/5 * 5;
+			int region_y = (int) y/20 * 20;
+			
+			if(region_x==x){
+				if(region_y == y){
+					str.add(Integer.toString(region_x)+','+region_y);
+					str.add(Integer.toString(region_x+5)+','+region_y);
+					if(h == 20){
+						str.add(Integer.toString(region_x+5)+','+(region_y-20));
+					}
+				}else{
+					str.add(Integer.toString(region_x)+','+(region_y+20));
+					str.add(Integer.toString(region_x+5)+','+(region_y+20));
+					if(y-region_y <= h){
+						str.add(Integer.toString(region_x)+','+region_y);
+						str.add(Integer.toString(region_x+5)+','+region_y);
+					}
+				}
+			}else{
+				if(region_y==y){
+					str.add(Integer.toString(region_x+5)+','+region_y);
+					if(x+w > region_x+5){
+						str.add(Integer.toString(region_x+10)+','+region_y);
+					}
+					if(h==20){
+						str.add(Integer.toString(region_x+5)+','+(region_y-20));
+						if(x+w > region_x+5){
+							str.add(Integer.toString(region_x+10)+','+(region_y-20));
+						}
+					}
+				}else{
+					str.add(Integer.toString(region_x+5)+','+(region_y+20));
+					if(region_x+5 < x+w){
+						str.add(Integer.toString(region_x+10)+','+(region_y+20));
+					}
+					if(region_y>=y-h){
+						str.add(Integer.toString(region_x+5)+','+region_y);
+						if(region_x+5< x+w){
+							str.add(Integer.toString(region_x+10)+','+region_y);
+						}
+					}
+				}
+				
+			}
+			
+			return str;
+		}
+	
+	} //mapper finish
+	
+	//Reducer
+	public static class outReducer
+			extends Reducer<Text, Text, Text, Text>{
+	
+		private Text KEY = new Text();
+		private Text result = new Text();
+		
+		public void reduce(Text key, Iterable<Text> value, Context context
+				)throws IOException, InterruptedException{
+			List<String> l = new ArrayList<String>(); //store rectangle, r1, x, y, h, w
+			List<String> points = new ArrayList<String>(); //store points
+			
+			for(Text val:value){
+				String[] str = val.toString().split(",");
+				if(!str[0].equals("p")){
+					l.add(val.toString());
+				}else{
+					points.add(val.toString());
+				}
+			} // store rectangle to arraylist l
+			
+			
+			for(String val:points){
+				String[] str = val.toString().split(",");
+				//System.out.println(val.toString());
+				//System.out.println('<'+str[1]+','+str[2]+'>');
+				for(String rec:l){
+					String[] recArr = rec.split(",");
+					//if points in rec
+					if(Integer.parseInt(str[1])>=Float.parseFloat(recArr[1]) 
+							&& Integer.parseInt(str[1])<=Float.parseFloat(recArr[1])+Float.parseFloat(recArr[4])
+							&& Integer.parseInt(str[2])<=Float.parseFloat(recArr[2])
+							&& Integer.parseInt(str[2])>=Float.parseFloat(recArr[2])-Float.parseFloat(recArr[3]) ){
+						KEY.set(recArr[0]);
+						result.set('<'+str[1]+','+str[2]+'>');
+						context.write(KEY, result);
+					}
+				}
+			}
+			
+			
+		}
+	} //reducer finish
+	
+	public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException{
+		Configuration conf = new Configuration();
+		if(args.length!=4){
+			System.err.println("Wrong ussage, Input needs to be <Points.file Rectangle.file outputpath WindowW>, no window needs to be NULL");
+			System.exit(2);
+		}
+		
+		conf.set("W", args[3]);
+		Job job = new Job(conf, "SpacialJoin");
+		job.setJarByClass(SpacialJoin.class);
+		job.setMapperClass(regMapper.class);
+		job.setReducerClass(outReducer.class);
+		job.setNumReduceTasks(2);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileInputFormat.addInputPath(job, new Path(args[1]));
+		FileOutputFormat.setOutputPath(job, new Path(args[2]));
+		System.exit(job.waitForCompletion(true)? 0:1);
+	}
+}

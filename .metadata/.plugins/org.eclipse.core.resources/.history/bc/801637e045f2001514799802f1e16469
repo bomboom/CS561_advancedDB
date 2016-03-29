@@ -1,0 +1,171 @@
+package hw4;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class p1s2 {
+
+    public static boolean filter(String X, String Y, String Window) {
+        if (Window.equals("")) {return true;}
+        else {String[] window_lis = Window.split(",");
+        int x = Integer.parseInt(X);
+        int y = Integer.parseInt(Y);
+        int[] window = new int[4];
+        for (int i=0; i<4; i++) {
+            window[i] = Integer.parseInt(window_lis[i]);
+        }
+        if (x<window[0] || x>window[2] || y<window[3] || y>window[1]) {return false;}
+        return true;
+        }
+    }
+
+    public static class AreaMapper
+            extends Mapper<Object, Text, Text, Text> {
+
+        private final static String prefix = "A~";
+
+        @Override
+        public void map(Object key, Text value, Context context
+        ) throws IOException, InterruptedException {
+            String[] record = value.toString().split(",", 5);
+            int[] int_record = new int[record.length];
+            for (int i=1; i<record.length; i++) {
+                int_record[i] = Integer.parseInt(record[i]);
+            }
+            String Window = context.getConfiguration().get("Window");
+            System.out.println(Window);
+            System.out.println(record[0]+','+record[1]);
+            boolean in = filter(record[1], record[2], Window) ||
+                    filter(Integer.toString(int_record[1]+int_record[3]),record[2],Window) ||
+                    filter(Integer.toString(int_record[1]+int_record[3]),
+                    Integer.toString(int_record[2]+int_record[4]), Window) ||
+                    filter(record[1], Integer.toString(int_record[2]+int_record[4]), Window);
+            if (in) {
+                String x1_id = Integer.toString((int_record[1]-1)/100);
+                String x2_id = Integer.toString((int_record[1]+int_record[3]-1)/100);
+                String y1_id = Integer.toString((int_record[2]-1)/100);
+                String y2_id = Integer.toString((int_record[2]+int_record[4]-1)/100);
+
+                Text area = new Text(record[0]+','+record[1]+','+record[2]+','+record[3]+','+record[4]);
+                if (x1_id.equals(x2_id)) {
+                    if (y1_id.equals(y2_id)) {
+                        context.write(new Text(x1_id+","+y1_id), area);
+                    }
+                    else {
+                        context.write(new Text(x1_id+","+y1_id), area);
+                        context.write(new Text(x1_id+","+y2_id), area);
+                    }
+                }
+                else {
+                    if (y1_id.equals(y2_id)) {
+                        context.write(new Text(x1_id+","+y1_id), area);
+                        context.write(new Text(x2_id+","+y1_id), area);
+                    }
+                    else {
+                        context.write(new Text(x1_id+","+y1_id), area);
+                        context.write(new Text(x2_id+","+y1_id), area);
+                        context.write(new Text(x1_id+","+y2_id), area);
+                        context.write(new Text(x2_id+","+y2_id), area);
+                    }
+                }
+            }
+        }
+    }
+
+    public static class PointMapper
+            extends Mapper<Object, Text, Text, Text> {
+
+        private final static String prefix = "P~";
+
+        @Override
+        public void map(Object key, Text value, Context context
+        ) throws IOException, InterruptedException {
+            String[] record = value.toString().split(",", 3);
+            String Window = context.getConfiguration().get("Window");
+            int[] int_record = new int[record.length];
+            for (int i=1; i<record.length; i++) {
+                int_record[i] = Integer.parseInt(record[i]);
+            }
+            if (filter(record[1], record[2], Window)) {
+                String x = Integer.toString((int_record[1] - 1) / 100);
+                String y = Integer.toString((int_record[2] - 1) / 100);
+                context.write(new Text(x + "," + y), new Text(record[1]+","+record[2]));
+            }
+        }
+    }
+
+
+    public static class SpatialReducer
+            extends Reducer<Text, Text, Text, Text> {
+
+        private List<String> areas = new ArrayList<String>();
+        private List<String> points = new ArrayList<String>();
+
+        @Override
+        public void reduce(Text key, Iterable<Text> values,
+                           Context context
+        ) throws IOException, InterruptedException {
+            for (Text value: values) {
+                String[] record = value.toString().split(",");
+                if (record.length==2) {
+                    points.add(value.toString());
+                }
+                else {
+                    record[3] = Integer.toString(Integer.parseInt(record[1])+Integer.parseInt(record[3]));
+                    record[4] = Integer.toString(Integer.parseInt(record[2])+Integer.parseInt(record[4]));
+                    areas.add(record[0]+','+record[1]+','+record[2]+','+record[3]+','+record[4]);
+                }
+            }
+
+            for (String point: points) {
+                String[] xy = point.split(",");
+                for (String area: areas) {
+                    if (filter(xy[0], xy[1], area)) {
+                        context.write(new Text(area.split(",")[0]), new Text("("+xy[0]+","+xy[1]+")"));
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        System.out.println("Usage: Problem 1: <PointFile> <AreaFile> <OutputFile> [<Window( , , , )>]");
+        Configuration conf = new Configuration();
+        if (args.length == 4) {
+            conf.set("Window", args[4]);
+        }
+        else if (args.length != 3) {
+            System.err.println("Usage: Problem 1: <PointFile> <AreaFile> <OutputFile> [<Window( , , , )>]");
+            System.exit(2);
+        }
+        else {
+            conf.set("Window", "");
+        }
+        Job job = new Job(conf, "Problem1");
+        job.setNumReduceTasks(4);
+        job.setJarByClass(p1s2.class);
+        // job.setMapperClass(CustomerMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, PointMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, AreaMapper.class);
+        job.setReducerClass(SpatialReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setNumReduceTasks(5);
+        job.setOutputValueClass(Text.class);
+        //FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[2]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}

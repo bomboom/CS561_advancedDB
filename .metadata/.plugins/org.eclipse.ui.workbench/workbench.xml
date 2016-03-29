@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="13" version="2.0">
+<workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="65" y="24">
 <fastViewData fastViewLocation="1024"/>
@@ -30,18 +30,13 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NaiveBayesian.java" partName="NaiveBayesian.java" path="/home/hadoop/Workspace/HW4/src/hw4/NaiveBayesian.java" title="NaiveBayesian.java" tooltip="HW4/src/hw4/NaiveBayesian.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HW4/src/hw4/NaiveBayesian.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1103" selectionTopPixel="263"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Kmeans.java" partName="Kmeans.java" path="/home/hadoop/Workspace/HW4/src/hw4/Kmeans.java" title="Kmeans.java" tooltip="HW4/src/hw4/Kmeans.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HW4/src/hw4/Kmeans.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="976" selectionOffset="14" selectionTopPixel="297"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Kmeans.java" partName="Kmeans.java" path="/home/hadoop/Workspace/HW4/src/problem3/Kmeans.java" title="Kmeans.java" tooltip="HW4/src/problem3/Kmeans.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HW4/src/problem3/Kmeans.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5449" selectionTopPixel="2244"/>
 </editor>
 </editors>
 <views>
@@ -54,9 +49,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (17 items)"/>
-<category IMemento.internal.id="Warnings"/>
-<category IMemento.internal.id="Errors"/>
+<category IMemento.internal.id="Warnings (18 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="257" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -71,9 +64,7 @@
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
-<customFilters userDefinedPatternsEnabled="false">
-<xmlDefinedFilters>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
@@ -309,52 +300,39 @@
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.7497929" ratioLeft="905" ratioRight="302" relationship="2" relative="left">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.7497929" ratioLeft="905" ratioRight="302" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.24937862" ratioLeft="301" ratioRight="906" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.7492625" ratioLeft="508" ratioRight="170" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<info folder="true" part="bottom" ratio="0.7492625" ratioLeft="508" ratioRight="170" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.7494481" ratioLeft="679" ratioRight="227" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="right" ratio="0.7494481" ratioLeft="679" ratioRight="227" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -468,7 +446,6 @@
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.apache.hadoop.eclipse.view.servers"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -488,8 +465,8 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.2782392" ratioLeft="335" ratioRight="869" relationship="2" relative="org.apache.hadoop.eclipse.perspective.left"/>
-<info folder="true" part="org.apache.hadoop.eclipse.perspective.bottom" ratio="0.4948148" ratioLeft="334" ratioRight="341" relationship="4" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.21179402" ratioLeft="255" ratioRight="949" relationship="2" relative="org.apache.hadoop.eclipse.perspective.left"/>
+<info folder="true" part="org.apache.hadoop.eclipse.perspective.bottom" ratio="0.68740743" ratioLeft="464" ratioRight="211" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
@@ -510,11 +487,9 @@
 </folder>
 </info>
 <info folder="true" part="org.apache.hadoop.eclipse.perspective.right" ratio="0.79917186" ratioLeft="772" ratioRight="194" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
@@ -524,160 +499,155 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HW4/src/hw4/Kmeans.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HW4/src/hw4/NaiveBayesian.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/create2Ddata/src/createFeature.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/create2Ddata/src/createData.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HW4/src/problem3/Kmeans.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HW4/src/problem3/CreateKmeansData.java"/>
 </editors>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="1840" y="0"/>
+<position info="not_deleted" x="7763" y="21"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="1842" y="0"/>
+<position info="not_deleted" x="10393" y="4"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="1919" y="0"/>
+<position info="not_deleted" x="7594" y="0"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="4971" y="128"/>
+<position info="not_deleted" x="10284" y="70"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="5566" y="43"/>
+<position info="not_deleted" x="7608" y="127"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="6561" y="59"/>
+<position info="not_deleted" x="10284" y="70"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="5092" y="0"/>
+<position info="not_deleted" x="6936" y="0"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="4751" y="0"/>
+<position info="not_deleted" x="6028" y="38"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="4749" y="0"/>
+<position info="not_deleted" x="5449" y="0"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="4748" y="0"/>
+<position info="not_deleted" x="5449" y="0"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="4789" y="0"/>
-</item>
-<item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="1185" y="0"/>
-</item>
-<item historyLabel="NaiveBayesian.java" index="1">
-<position info="not_deleted" x="1103" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="1030" y="0"/>
-</item>
-<item historyLabel="NaiveBayesian.java" index="1">
-<position info="not_deleted" x="1103" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="1030" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="204" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="227" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="246" y="0"/>
-</item>
-<item historyLabel="createData.java" index="3">
 <position/>
 </item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="246" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="220" y="6"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
+<item historyLabel="Kmeans.java" index="0">
 <position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="296" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="1025" y="0"/>
-</item>
-<item historyLabel="createData.java" index="3">
-<position info="not_deleted" x="350" y="323"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="1025" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="554" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="541" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="582" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="613" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="615" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="601" y="6"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="255" y="0"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="639" y="0"/>
-</item>
-<item historyLabel="createData.java" index="3">
-<position info="not_deleted" x="742" y="315"/>
-</item>
-<item historyLabel="createFeature.java" index="2">
-<position info="not_deleted" x="1025" y="0"/>
-</item>
-<item historyLabel="createData.java" index="3">
-<position info="not_deleted" x="1057" y="0"/>
-</item>
-<item historyLabel="NaiveBayesian.java" index="1">
-<position info="not_deleted" x="1103" y="0"/>
 </item>
 <item historyLabel="Kmeans.java" index="0">
-<position info="not_deleted" x="14" y="976"/>
+<position/>
 </item>
-<item active="true" historyLabel="NaiveBayesian.java" index="1">
-<position info="not_deleted" x="1103" y="0"/>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5963" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5949" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5949" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="2644" y="46"/>
+</item>
+<item historyLabel="CreateKmeansData.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="2644" y="46"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="10284" y="70"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5496" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5903" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="2596" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5446" y="0"/>
+</item>
+<item historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="3060" y="0"/>
+</item>
+<item active="true" historyLabel="Kmeans.java" index="0">
+<position info="not_deleted" x="5449" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -696,35 +666,8 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Kmeans.java" tooltip="HW4/src/hw4/Kmeans.java">
-<persistable path="/HW4/src/hw4/Kmeans.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="createData.java" tooltip="create2Ddata/src/createData.java">
-<persistable path="/create2Ddata/src/createData.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="createFeature.java" tooltip="create2Ddata/src/createFeature.java">
-<persistable path="/create2Ddata/src/createFeature.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NaiveBayesian.java" tooltip="HW4/src/hw4/NaiveBayesian.java">
-<persistable path="/HW4/src/hw4/NaiveBayesian.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Query2.java" tooltip="ugly/src/project1/Query2.java">
-<persistable path="/ugly/src/project1/Query2.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Query4.java" tooltip="ugly/src/project1/Query4.java">
-<persistable path="/ugly/src/project1/Query4.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="writeCSV.java" tooltip="createDataSet/src/writeCSV.java">
-<persistable path="/createDataSet/src/writeCSV.java"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Job.class" tooltip="org.apache.hadoop.mapreduce.Job">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=ugly/\/usr\/share\/hadoop\/hadoop-core-1.2.1.jar&lt;org.apache.hadoop.mapreduce(Job.class"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Query5.java" tooltip="ugly/src/project1/Query5.java">
-<persistable path="/ugly/src/project1/Query5.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="query3.java" tooltip="test/src/query3.java">
-<persistable path="/test/src/query3.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateKmeansData.java" tooltip="HW4/src/problem3/CreateKmeansData.java">
+<persistable path="/HW4/src/problem3/CreateKmeansData.java"/>
 </file>
 </mruList>
 </workbench>
